@@ -4,18 +4,19 @@ class TestSequenceFunctions(unittest.TestCase):
 
 	def testOneOne(self):
 		expected = [[1]]
-		matrix = Matrix(1)
+		matrix = Matrix(1, 1)
 		self.assertEquals(expected, matrix.compute())
 		
 	def testOneThree(self):
 		expected = [[1, 2, 3]]
-		matrix = Matrix(3)
+		matrix = Matrix(1, 3)
 		self.assertEquals(expected, matrix.compute())
 		
 
 class Matrix:
 	
-	def __init__(self, columns):
+	def __init__(self, lines, columns):
+		self.lines = lines
 		self.columns = columns
 		
 	def compute(self):
