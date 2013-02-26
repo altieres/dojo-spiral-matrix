@@ -53,20 +53,16 @@ class Matrix:
 		self.assingAndIncCurrent()
 		if not self.hasMoreElements():
 			return
-		if not self.mustChangeDirection():
-			self.curr_line += self.inc_line
-			self.curr_column += self.inc_column
-			self.computeStep()
-		else:
+		if self.mustChangeDirection():
 			if self.inc_line != 0:
 				self.inc_line *= -1
 			aux = self.inc_line
 			self.inc_line = self.inc_column
 			self.inc_column = aux
 
-			self.curr_line += self.inc_line
-			self.curr_column += self.inc_column
-			self.computeStep()
+		self.curr_line += self.inc_line
+		self.curr_column += self.inc_column
+		self.computeStep()
 			
 	def assingAndIncCurrent(self):
 		self.matrix[self.curr_line][self.curr_column] = self.current
