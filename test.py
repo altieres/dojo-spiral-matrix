@@ -49,11 +49,9 @@ class Matrix:
 		self.assingAndIncCurrent(curr_line, curr_column)
 		if not self.hasMoreElements():
 			return
-		try:
-			if self.matrix[curr_line + inc_line][curr_column + inc_column] != 0:
-				raise Exception
+		if not self.mustChangeDirection(curr_line, curr_column, inc_line, inc_column):
 			self.computeStep(curr_line + inc_line, curr_column + inc_column, inc_line, inc_column)
-		except:
+		else:
 			if inc_line != 0:
 				inc_line *= -1
 			aux = inc_line
@@ -67,6 +65,14 @@ class Matrix:
 		
 	def hasMoreElements(self):
 		return self.current <= self.lines * self.columns
+	
+	def mustChangeDirection(self, curr_line, curr_column, inc_line, inc_column):
+		try:
+			if self.matrix[curr_line + inc_line][curr_column + inc_column] != 0:
+				return True
+		except:
+			return True
+		return False
 			
 if __name__ == '__main__':
     unittest.main()
