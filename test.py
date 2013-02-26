@@ -46,9 +46,8 @@ class Matrix:
 		return self.matrix
 		
 	def computeStep(self, curr_line, curr_column, inc_line, inc_column):
-		self.matrix[curr_line][curr_column] = self.current
-		self.current += 1
-		if self.current > self.lines * self.columns:
+		self.assingAndIncCurrent(curr_line, curr_column)
+		if not self.hasMoreElements():
 			return
 		try:
 			if self.matrix[curr_line + inc_line][curr_column + inc_column] != 0:
@@ -61,6 +60,13 @@ class Matrix:
 			inc_line = inc_column
 			inc_column = aux
 			self.computeStep(curr_line + inc_line, curr_column + inc_column, inc_line, inc_column)
+			
+	def assingAndIncCurrent(self, curr_line, curr_column):
+		self.matrix[curr_line][curr_column] = self.current
+		self.current += 1
+		
+	def hasMoreElements(self):
+		return self.current <= self.lines * self.columns
 			
 if __name__ == '__main__':
     unittest.main()
