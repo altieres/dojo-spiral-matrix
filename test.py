@@ -39,13 +39,13 @@ class Matrix:
 		self.matrix = [[0 for i in range(columns)] for i in range(lines)]
 		self.lines = lines
 		self.columns = columns
+		
+	def compute(self):
 		self.current = 1
 		self.curr_line = 0
 		self.curr_column = 0
 		self.inc_line = 0
 		self.inc_column = +1
-		
-	def compute(self):
 		self.computeStep()
 		return self.matrix
 		
@@ -85,7 +85,7 @@ class Matrix:
 		self.curr_column += self.inc_column
 		self.computeStep()
 		
-			
+
 if __name__ == '__main__':
     unittest.main()
 
