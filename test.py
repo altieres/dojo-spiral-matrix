@@ -36,39 +36,48 @@ class TestSequenceFunctions(unittest.TestCase):
 class Matrix:
 	
 	def __init__(self, lines, columns):
-		self.current = 1
+		self.matrix = [[0 for i in range(columns)] for i in range(lines)]
 		self.lines = lines
 		self.columns = columns
-		self.matrix = [[0 for i in range(self.columns)] for i in range(self.lines)]
+		self.current = 1
+		self.curr_line = 0
+		self.curr_column = 0
+		self.inc_line = 0
+		self.inc_column = +1
 		
 	def compute(self):
-		self.computeStep(0, 0, 0, +1)
+		self.computeStep()
 		return self.matrix
 		
-	def computeStep(self, curr_line, curr_column, inc_line, inc_column):
-		self.assingAndIncCurrent(curr_line, curr_column)
+	def computeStep(self):
+		self.assingAndIncCurrent()
 		if not self.hasMoreElements():
 			return
-		if not self.mustChangeDirection(curr_line, curr_column, inc_line, inc_column):
-			self.computeStep(curr_line + inc_line, curr_column + inc_column, inc_line, inc_column)
+		if not self.mustChangeDirection():
+			self.curr_line += self.inc_line
+			self.curr_column += self.inc_column
+			self.computeStep()
 		else:
-			if inc_line != 0:
-				inc_line *= -1
-			aux = inc_line
-			inc_line = inc_column
-			inc_column = aux
-			self.computeStep(curr_line + inc_line, curr_column + inc_column, inc_line, inc_column)
+			if self.inc_line != 0:
+				self.inc_line *= -1
+			aux = self.inc_line
+			self.inc_line = self.inc_column
+			self.inc_column = aux
+
+			self.curr_line += self.inc_line
+			self.curr_column += self.inc_column
+			self.computeStep()
 			
-	def assingAndIncCurrent(self, curr_line, curr_column):
-		self.matrix[curr_line][curr_column] = self.current
+	def assingAndIncCurrent(self):
+		self.matrix[self.curr_line][self.curr_column] = self.current
 		self.current += 1
 		
 	def hasMoreElements(self):
 		return self.current <= self.lines * self.columns
 	
-	def mustChangeDirection(self, curr_line, curr_column, inc_line, inc_column):
+	def mustChangeDirection(self):
 		try:
-			if self.matrix[curr_line + inc_line][curr_column + inc_column] != 0:
+			if self.matrix[self.curr_line + self.inc_line][self.curr_column + self.inc_column] != 0:
 				return True
 		except:
 			return True
