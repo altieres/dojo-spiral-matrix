@@ -3,13 +3,13 @@ import unittest
 class TestSequenceFunctions(unittest.TestCase):
 
 	def testOneOne(self):
-		expected = [[1]]
 		matrix = Matrix(1, 1)
+		expected = [[1]]
 		self.assertEquals(expected, matrix.compute())
 		
 	def testOneThree(self):
-		expected = [[1, 2, 3]]
 		matrix = Matrix(1, 3)
+		expected = [[1, 2, 3]]
 		self.assertEquals(expected, matrix.compute())
 		
 	def testLastColumn(self):
@@ -24,6 +24,14 @@ class TestSequenceFunctions(unittest.TestCase):
 								[7, 6, 5]]
 		self.assertEquals(expected, matrix)
 			
+	def testFourSix(self):
+		matrix = Matrix(4, 6).compute()
+		expected = [[ 1,  2,  3,  4,  5,  6],
+								[16, 17, 18, 19, 20,  7],
+								[15, 24, 23, 22, 21,  8],
+								[14, 13, 12, 11, 10,  9]]
+		self.assertEquals(expected, matrix)
+
 
 class Matrix:
 	
