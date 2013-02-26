@@ -40,8 +40,8 @@ class MatrixBase:
 	def raw(self):
 		return self.matrix
 		
-	def assign(self, curr_line, curr_column, current):
-		self.matrix[curr_line][curr_column] = current
+	def assign(self, line, column, value):
+		self.matrix[line][column] = value
 		
 	def isZero(self, line, column):
 		try:
