@@ -33,10 +33,29 @@ class TestSequenceFunctions(unittest.TestCase):
 		self.assertEquals(expected, matrix)
 
 
+class MatrixBase:
+	def __init__(self, lines, columns):
+		self.matrix = [[0 for i in range(columns)] for i in range(lines)]
+		
+	def raw(self):
+		return self.matrix
+		
+	def assign(self, curr_line, curr_column, current):
+		self.matrix[curr_line][curr_column] = current
+		
+	def isZero(self, line, column):
+		try:
+			if self.matrix[line][column] == 0:
+				return True
+		except:
+			return False
+		return False
+		
+		
 class Matrix:
 	
 	def __init__(self, lines, columns):
-		self.matrix = [[0 for i in range(columns)] for i in range(lines)]
+		self.matrix = MatrixBase(lines, columns)
 		self.lines = lines
 		self.columns = columns
 		
@@ -47,7 +66,7 @@ class Matrix:
 		self.inc_line = 0
 		self.inc_column = +1
 		self.computeStep()
-		return self.matrix
+		return self.matrix.raw()
 		
 	def computeStep(self):
 		self.assingAndIncCurrent()
@@ -59,19 +78,11 @@ class Matrix:
 			self.incrementAndCallRecursively()
 			
 	def assingAndIncCurrent(self):
-		self.matrix[self.curr_line][self.curr_column] = self.current
+		self.matrix.assign(self.curr_line, self.curr_column, self.current)
 		self.current += 1
 		
-	def hasMoreElements(self):
-		return self.current <= self.lines * self.columns
-	
 	def mustChangeDirection(self):
-		try:
-			if self.matrix[self.curr_line + self.inc_line][self.curr_column + self.inc_column] != 0:
-				return True
-		except:
-			return True
-		return False
+		return not self.matrix.isZero(self.curr_line + self.inc_line, self.curr_column + self.inc_column)
 		
 	def changeDirection(self):
 		if self.inc_line != 0:
@@ -80,6 +91,9 @@ class Matrix:
 		self.inc_line = self.inc_column
 		self.inc_column = aux
 		
+	def hasMoreElements(self):
+		return self.current <= self.lines * self.columns
+
 	def incrementAndCallRecursively(self):
 		self.curr_line += self.inc_line
 		self.curr_column += self.inc_column
