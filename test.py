@@ -51,12 +51,12 @@ class Matrix:
 		
 	def computeStep(self):
 		self.assingAndIncCurrent()
-		if not self.hasMoreElements():
-			return
+
 		if self.mustChangeDirection():
 			self.changeDirection()
 
-		self.incrementAndCallRecursively()
+		if self.hasMoreElements():
+			self.incrementAndCallRecursively()
 			
 	def assingAndIncCurrent(self):
 		self.matrix[self.curr_line][self.curr_column] = self.current
