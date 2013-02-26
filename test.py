@@ -56,9 +56,7 @@ class Matrix:
 		if self.mustChangeDirection():
 			self.changeDirection()
 
-		self.curr_line += self.inc_line
-		self.curr_column += self.inc_column
-		self.computeStep()
+		self.incrementAndCallRecursively()
 			
 	def assingAndIncCurrent(self):
 		self.matrix[self.curr_line][self.curr_column] = self.current
@@ -81,6 +79,11 @@ class Matrix:
 		aux = self.inc_line
 		self.inc_line = self.inc_column
 		self.inc_column = aux
+		
+	def incrementAndCallRecursively(self):
+		self.curr_line += self.inc_line
+		self.curr_column += self.inc_column
+		self.computeStep()
 		
 			
 if __name__ == '__main__':
