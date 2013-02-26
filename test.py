@@ -16,21 +16,52 @@ class TestSequenceFunctions(unittest.TestCase):
 		matrix = Matrix(3, 3).compute()
 		for line in range(3):
 			self.assertEquals(line+3, matrix[line][2])
+	
+	def testThreeThree(self):
+		matrix = Matrix(3, 3).compute()
+		expected = [[1, 2, 3],
+								[8, 9, 4],
+								[7, 6, 5]]
+		self.assertEquals(expected, matrix)
 			
 
 class Matrix:
 	
 	def __init__(self, lines, columns):
+		self.current = 1
 		self.lines = lines
 		self.columns = columns
 		self.matrix = [[0 for i in range(self.columns)] for i in range(self.lines)]
 		
 	def compute(self):
-		for line in range(self.lines):
-			for column in range(self.columns):
-				self.matrix[line][column] = column + line + 1
+		self.computeStep(0, 0, 0, +1)
 		return self.matrix
 		
-
+	def computeStep(self, curr_line, curr_column, inc_line, inc_column):
+		self.matrix[curr_line][curr_column] = self.current
+		self.current += 1
+		if self.current > self.lines * self.columns:
+			return
+		try:
+			if self.matrix[curr_line + inc_line][curr_column + inc_column] != 0:
+				raise Exception
+			self.computeStep(curr_line + inc_line, curr_column + inc_column, inc_line, inc_column)
+		except:
+			if inc_line != 0:
+				inc_line *= -1
+			aux = inc_line
+			inc_line = inc_column
+			inc_column = aux
+			self.computeStep(curr_line + inc_line, curr_column + inc_column, inc_line, inc_column)
+			
 if __name__ == '__main__':
     unittest.main()
+
+
+#0 +1
+#+1 0
+#0 -1
+#-1 0
+
+
+
