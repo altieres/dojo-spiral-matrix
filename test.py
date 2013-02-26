@@ -54,11 +54,7 @@ class Matrix:
 		if not self.hasMoreElements():
 			return
 		if self.mustChangeDirection():
-			if self.inc_line != 0:
-				self.inc_line *= -1
-			aux = self.inc_line
-			self.inc_line = self.inc_column
-			self.inc_column = aux
+			self.changeDirection()
 
 		self.curr_line += self.inc_line
 		self.curr_column += self.inc_column
@@ -78,6 +74,14 @@ class Matrix:
 		except:
 			return True
 		return False
+		
+	def changeDirection(self):
+		if self.inc_line != 0:
+			self.inc_line *= -1
+		aux = self.inc_line
+		self.inc_line = self.inc_column
+		self.inc_column = aux
+		
 			
 if __name__ == '__main__':
     unittest.main()
