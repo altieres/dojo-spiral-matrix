@@ -1,6 +1,6 @@
 import unittest
 
-class TestSequenceFunctions(unittest.TestCase):
+class TestMAtrix(unittest.TestCase):
 
 	def testOneOne(self):
 		matrix = Matrix(1, 1)
