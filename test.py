@@ -1,31 +1,31 @@
 import unittest
 
-class TestMAtrix(unittest.TestCase):
+class TestSpiralMatrix(unittest.TestCase):
 
 	def testOneOne(self):
-		matrix = Matrix(1, 1)
+		matrix = SpiralMatrix(1, 1)
 		expected = [[1]]
 		self.assertEquals(expected, matrix.compute())
 		
 	def testOneThree(self):
-		matrix = Matrix(1, 3)
+		matrix = SpiralMatrix(1, 3)
 		expected = [[1, 2, 3]]
 		self.assertEquals(expected, matrix.compute())
 		
 	def testLastColumn(self):
-		matrix = Matrix(3, 3).compute()
+		matrix = SpiralMatrix(3, 3).compute()
 		for line in range(3):
 			self.assertEquals(line+3, matrix[line][2])
 	
 	def testThreeThree(self):
-		matrix = Matrix(3, 3).compute()
+		matrix = SpiralMatrix(3, 3).compute()
 		expected = [[1, 2, 3],
 								[8, 9, 4],
 								[7, 6, 5]]
 		self.assertEquals(expected, matrix)
 			
 	def testFourSix(self):
-		matrix = Matrix(4, 6).compute()
+		matrix = SpiralMatrix(4, 6).compute()
 		expected = [[ 1,  2,  3,  4,  5,  6],
 								[16, 17, 18, 19, 20,  7],
 								[15, 24, 23, 22, 21,  8],
@@ -52,7 +52,7 @@ class MatrixBase:
 		return False
 		
 		
-class Matrix:
+class SpiralMatrix:
 	
 	def __init__(self, lines, columns):
 		self.matrix = MatrixBase(lines, columns)
